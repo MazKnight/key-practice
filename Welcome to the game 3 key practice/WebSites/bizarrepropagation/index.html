@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../Global/Basic.js"></script>
+    <link rel="stylesheet" href="../Global/reset.css"/>
+    <link rel="stylesheet" href="style.css">
+	<title>Bizarre Propagation</title>
+</head>
+<body>
+	<div id="header">
+		<a class="CFTAG"><p id="selection">Select sound</p></a>
+		<button id="play" onclick="playTrack()" type="button"></button>
+		<button id="stop" onclick="stopTrack()" type="button"></button>
+	</div>
+
+	<div id="container">
+		<button id="bizAudio1" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio99" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio419" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio8" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio311" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio76" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio808" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio000" onclick="selectAudio(this)" type="button"></button>
+		<button id="bizAudio16" onclick="selectAudio(this)" type="button"></button>
+
+		<em class="PTAG" id="cross"></em>
+		
+		<a class="CPTAG">
+			<div id="fake-button"></div>
+		</a>
+	</div>
+	<em class="PTAG" id="wash"></em>
+	<em class="PTAG" id="daisy"></em>
+	<script type="text/javascript" src="audioPlay.js"></script>
+</body>
+</html>
