@@ -5,3 +5,8 @@
 #options {
     display:flex;
 }
+
+body {
+    background-color: black;
+    color: white;
+}
