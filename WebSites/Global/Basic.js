@@ -175,10 +175,6 @@ async function HandleElement(baseElement) {
         numberOfKeys += 1
     }
 
-    if (websiteName == "thehole") {
-        await new Promise(resolve => setTimeout(resolve, (100)));
-    }
-
     UpdateHighlightElements()
 }
 
@@ -230,3 +226,9 @@ function UpdateHighlightElements() {
         document.getElementsByTagName("body")[0].appendChild(highlight)
     }
 }
+
+const fixImageBoxes = setInterval(() => {
+
+    UpdateHighlightElements
+
+}, 100)
