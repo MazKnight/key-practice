@@ -229,6 +229,6 @@ function UpdateHighlightElements() {
 
 const fixImageBoxes = setInterval(() => {
 
-    UpdateHighlightElements
+    UpdateHighlightElements()
 
 }, 100)
