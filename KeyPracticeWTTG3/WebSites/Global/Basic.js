@@ -230,7 +230,3 @@ function UpdateHighlightElements() {
         document.getElementsByTagName("body")[0].appendChild(highlight)
     }
 }
-
-function sendEventToUnreal(one, two) {
-    console.log("test")
-}

@@ -22,20 +22,31 @@ const bizSounds = [
     "bizAudio16"
 ];
 
+
+track = ""
+
 function selectAudio(event){
 	stopTrack();
 	if(bizSounds.includes(event.id)){
 		document.getElementById("selection").innerHTML = "Selection " + event.id;
-        sendEventToUnreal("BPSelectAudio", {TrackName: event.id});
+        track = bizFile[bizSounds.indexOf(event.id)]
 	}else{
 		document.getElementById("selection").innerHTML = "Select sound";
 	}
 }
 
+
+var sound
+
 function playTrack() {
-    sendEventToUnreal("PlayAudio", {});
+    sound = new Audio(track)
+    sound.play()
 }
 
 function stopTrack() {
-    sendEventToUnreal("StopAudio", {});
+    if (sound == null) {return;}
+
+    sound.pause()
 }
+
+
