@@ -10,3 +10,53 @@ body {
     background-color: black;
     color: white;
 }
+
+.websiteTable {
+    border: white solid;
+    border-collapse: collapse;
+    width: 100%
+}
+
+th{
+    border-style: solid;
+    border-bottom: solid white 1px
+}
+
+td {
+    border-left-style: solid;
+    border-bottom: dashed white 1px
+}
+
+
+td:where(:empty) {
+    border-left-style: solid;
+    border-bottom: none;
+}
+
+.mainInfo {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.timeTables {
+    text-align: center;
+}
+
+.time {
+    color:pink;
+    border-color: white;
+}
+
+#alwaysUp {
+    text-align: left;
+}
+
+.fauxLink {
+    color:cyan;
+    text-decoration: underline;
+}
+
+.fauxLink:hover {
+    cursor:pointer;
+    color:blue
+}

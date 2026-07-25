@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="./code.js"></script>
+    <script src="./info.js"></script>
     <title>Practice Key locator</title>
 </head>
 <body>
@@ -17,7 +18,31 @@
         <p>Show key locations</p>
     </div>
 
+    <div class="mainInfo">
     <ul id="websites">
     </ul>
+
+    <div class="timeTables">
+        <table class="websiteTable" id="quarterTable">
+            <tr>
+                <th class="time">XX:00 - XX:14</th>
+                <th class="time">XX:15 - XX:29</th>
+                <th class="time">XX:30 - XX:44</th>
+                <th class="time">XX:45 - XX:59</th>
+            </tr>
+            <caption><h2>Max priority (25% uptime per hour)</h2></caption>
+        </table>
+        <table class="websiteTable" id="halfTable">
+            <tr>
+                <th class="time">XX:00 - XX:29</th>
+                <th class="time">XX:30 - XX:59</th>
+            </tr>
+            <caption><h2>Medium priority (50% uptime per hour)</h2></caption>
+        </table>
+        <h2>Low priority (100% uptime per hour)</h2>
+        <ul id="alwaysUp">
+        </ul>
+    </div> 
+    </div>
 </body>
 </html>

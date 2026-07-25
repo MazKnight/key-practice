@@ -1,56 +1,3 @@
-var websites = {
-    "Bizarre Propagation":"bizarrepropagation",
-    "Blackhat Post":"blackhatpost",
-    "Blushing Brides":"blushingbrides",
-    "Building a Future":"buildingafuture",
-    "Cavity Lease":"cavitylease",
-    "Chevron":"chevron",
-    "Crisis Calls":"crisiscalls",
-    "Crystal Guild":"crystalguild",
-    "Doctor Murder":"doctormurder",
-    "Don't waste it":"dontwasteit",
-    "Doughy":"doughy",
-    "Drug tickets":"drugtickets",
-    "Eat My Shit":"ems",
-    "Encrave":"encrave",
-    "Final Standing":"finalstanding",
-    "FindLove":"findlove",
-    "Forever Friend":"foreverfriend",
-    "Forsaken Gifts":"forsakengifts",
-    "I am here":"iamhere",
-    "Jakob's sink":"jakobssink",
-    "Keep Sake":"keepsake",
-    "Kill for me":"killforme",
-    "Lab Monkey":"labmonkey",
-    "Lost Tapes":"losttapes",
-    "Mama Bruguglio":"mamabruguglio",
-    "Mors n more market":"morsnmoremarket",
-    "Oneless":"oneless",
-    "Order of nine":"orderofnine",
-    "Overnight Success":"overnightsuccess",
-    "Prohibited Stockpile":"prohibitedstockpile",
-    "Red Handed":"redhanded",
-    "Red Triangle":"redtriangle",
-    "Ring Ring":"ringring",
-    "Shelter":"shelter",
-    "Symphoros Chosen":"symphoroschosen",
-    "Synapse Decay":"synapsedecay",
-    "Tango Down":"tangodown",
-    "Thanks for Visiting":"thanksforvisting",
-    "The Bomb Maker":"thebombmaker",
-    "The Grey":"TheGrey",
-    "The Hall":"thehall",
-    "The Hole":"thehole",
-    "The Light Within":"thelightwithin",
-    "The Loogaroo":"theloogaroo",
-    "The Prey":"theprey",
-    "Time Sharing":"timesharing",
-    "Track06":"track06",
-    "ViaMarisRoute":"viamarisroute",
-    "Voluvision":"voluvision",
-    "World Wide Workers":"worldwideworkers",
-    "You There?":"youthere",
-}
 
 var showKeyLocations;
 
@@ -65,45 +12,102 @@ window.onload = function() {
         var element1 = document.createElement("li")
         var element = document.createElement("a")
 
-        element.setAttribute("target","_blank")
-        element.setAttribute("href", "./WebSites/" + websites[websiteName] + "/index.html")
+        element.setAttribute("onClick","VisitWebsite(\"" + websites[websiteName] + "\")")
+        element.setAttribute("class","fauxLink")
+
         element.innerHTML = websiteName
 
         element1.appendChild(element)
         websiteList.appendChild(element1)
     }
 
-    showKeyLocations.addEventListener("change", onClick)
-
-    onClick()
+    createTables()
 }
 
+function createTables() {
 
+    var websiteNames = Object.keys(websites)
 
-function onClick() {
+    for (let i = 0; i < websiteNames.length; i++) {
+        
+        var website = websiteNames[i]
+        var websiteLink = websites[website]
+        
+        var time = websiteUpTimes[websiteLink]
 
-    var websiteList = document.getElementById("websites")
+        var element = document.createElement("a")
+        element.setAttribute("onClick","VisitWebsite(\"" + websiteLink + "\")")
+        element.setAttribute("class","fauxLink")
+        element.innerHTML = website
 
-    var children = websiteList.children
+        var part
+        var index
+        if (time >= FIRSTQUARTER && time <= FOURTHQUARTER) {
+            part = document.getElementById("quarterTable")
 
-    for (let i = 0; i < children.length; i++) {
-        var child = children[i]
-        var element = child.children[0]
+            index = time
+        }
+        else if (time == ALWAYS) {
+            part = document.getElementById("alwaysUp")
 
-        var base = element.getAttribute("href")
+            var subelement = document.createElement("li")
+            subelement.appendChild(element)
 
-        if (base.includes("?")) {
-            base = base.split("?")[0]
+            part.appendChild(subelement)
+            
+            continue
+        }
+        else {
+            part = document.getElementById("halfTable")
+            index = time - 4
         }
 
-        var isChecked = showKeyLocations.checked
+        var hasSetData = false
 
-        var searchParams = new URLSearchParams([
-            ["showKeys", isChecked]
-        ])
+        for (let e = 0; e < part.children[0].children.length; e++) {
 
-        base += "?" + searchParams
+            var node = part.children[0].children[e]
 
-        element.setAttribute("href",base)
+            if (node.tagName != "TR" || (node.children.length > 0 && node.children[0].tagName == "TH")) {
+                continue
+            }
+
+            if (node.children[index].children.length == 0) {
+                node.children[index].appendChild(element)
+                hasSetData = true
+                break
+            }
+        }
+
+        if (!hasSetData) {
+            var row = document.createElement("tr")
+
+            var times = 4
+            if (part.id == "halfTable") {
+                times = 2
+            }
+            
+            for (let e = 0; e < times; e++) {
+                var tempElement = document.createElement("td")
+
+                if (e == index) {
+                    tempElement.appendChild(element)
+                }
+
+                row.appendChild(tempElement)
+            }
+
+            part.children[0].appendChild(row)
+        }
+
     }
+}
+
+function VisitWebsite(website) {
+    
+    var urlSearchStuff = new URLSearchParams([
+        ["showKeys", showKeyLocations.checked]
+    ])
+
+    open("./WebSites/" + website + "/index.html?" + urlSearchStuff)
 }

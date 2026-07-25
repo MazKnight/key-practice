@@ -155,7 +155,7 @@ async function HandleElement(baseElement) {
             continue
         }
 
-        if (["IMG", "VIDEO", "HR"].includes(element.tagName)) {
+        if (["IMG", "VIDEO", "HR", "FIGURE"].includes(element.tagName)) {
             highlightElements.push(element)
             numberOfKeys += 1
             continue
