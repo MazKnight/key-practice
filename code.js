@@ -1,10 +1,36 @@
 
-var showKeyLocations;
-
 window.onload = function() {
     var websiteList = document.getElementById("websites")
 
-    showKeyLocations = document.getElementById("showKeys")
+    var settings = {}
+    var settingsElements = document.getElementsByClassName("setting")
+
+    for (let i = 0; i < settingsElements.length; i++) {
+        setting = settingsElements[i]
+
+        settings[setting.getAttribute("name")] = setting
+    }
+
+    var choices = GetChoices()
+
+    if (!Object.keys(choices).includes("visitData")) {
+        resetVisitData()
+    }
+
+    var options = document.getElementsByClassName("setting")
+
+    for (let i = 0; i < options.length; i++) {
+
+        var name = options[i].getAttribute("name")
+
+        if (Object.keys(choices).includes(name)) {
+
+            options[i].checked = choices[name]
+
+        }
+
+        options[i].setAttribute("onclick", "setcookies()")
+    }
 
     for (let i = 0; i < Object.keys(websites).length; i++) {
         websiteName = Object.keys(websites)[i]
@@ -22,6 +48,44 @@ window.onload = function() {
     }
 
     createTables()
+}
+
+function GetChoices() {
+    var choices = {}
+
+    if (document.cookie != "") {
+        var things = document.cookie.split(";")
+
+        for (let i = 0; i < things.length; i++) {
+            thing = things[i]
+
+            var actualStuff = thing.split("=")
+
+            if (actualStuff[0].charAt(0) == " ") {
+                actualStuff[0] = actualStuff[0].substring(1, actualStuff[0].length)
+            }
+
+            if (actualStuff[1] == "true") {
+                choices[actualStuff[0]] = true
+            }
+            else if (actualStuff[1] == "false") {
+                choices[actualStuff[0]] = false
+            }
+            else { 
+
+                try {
+                    choices[actualStuff[0]] = JSON.parse(actualStuff[1])
+                }
+
+                catch {
+                    choices[actualStuff[0]] = actualStuff[1]
+                }
+                
+            }
+        }
+    }
+
+    return choices
 }
 
 function createTables() {
@@ -103,11 +167,136 @@ function createTables() {
     }
 }
 
-function VisitWebsite(website) {
-    
-    var urlSearchStuff = new URLSearchParams([
-        ["showKeys", showKeyLocations.checked]
-    ])
+function setcookies() {
 
-    open("./WebSites/" + website + "/index.html?" + urlSearchStuff)
+    console.log("hi")
+
+    var settingsElements = document.getElementsByClassName("setting")
+
+    for (let i = 0; i < settingsElements.length; i++) {
+        var setting = settingsElements[i]
+
+        document.cookie = setting.getAttribute("name") + "=" + setting.checked
+    }
+
 }
+
+function resetVisitData() {
+
+    var data = {}
+
+    for (let i = 0; i < Object.values(websites).length; i++) {
+        var website = Object.values(websites)[i]
+
+        data[website] = {}
+
+        for (let e = 0; e < websiteSubPages[website].length; e++) {
+            data[website][websiteSubPages[website][e]] = false
+        }
+
+    }
+
+    document.cookie = "websiteVisitData=" + JSON.stringify(data)
+}
+
+function CheckForCompletion() {
+
+    var choices = GetChoices()
+
+    var data = choices["websiteVisitData"]
+    var links = document.getElementsByClassName("fauxLink")
+
+    for (let i = 0; i < links.length; i++) {
+
+        var link = links[i]
+        var name = link.getAttribute("onclick").split("\"")[1]
+
+        var trueComplete = true
+        var trueNotComplete = true
+        for (let e = 0; e < Object.values(data[name]).length; e++) {
+
+            if (!Object.values(data[name])[e]) {
+                trueComplete = false
+            }
+
+            else {
+                trueNotComplete = false
+            }
+
+            if (!trueComplete && !trueNotComplete) {
+                break
+            }
+        }
+
+        if (trueComplete) {
+            link.classList.add("fullyVisited")
+        }
+
+        else if (trueNotComplete) {
+            link.classList.add("notVisted")
+        }
+
+        else {
+            link.classList.add("partlyVisited")
+        }
+    }
+
+}
+
+function VisitWebsite(website) {
+    setcookies()
+
+    var fauxLinks = document.getElementsByClassName("fauxLink")
+
+    for (let i = 0; i < fauxLinks.length; i++) {
+        var element = fauxLinks[i];
+
+        var websiteName = element.getAttribute("onclick").split("\"")[1]
+
+
+
+    }
+
+    open("./WebSites/" + website + "/index.html")
+}
+
+document.addEventListener('contextmenu', event => {
+
+    var fauxLinks = document.getElementsByClassName("fauxLink")
+
+    var found = ""
+    var isBlue = false
+    for (let i = 0; i < fauxLinks.length; i++) {
+        var link = fauxLinks[i]
+
+        if (link.matches(":hover")) {
+            found = link.getAttribute("onclick").split("\"")[1]
+
+            if (link.style.color == "blue") {
+                isBlue = true
+            }
+
+            break
+        }
+    }
+
+    if (found == "" || !isBlue) {
+        return
+    }
+
+    event.preventDefault()
+
+    for (let i = 0; i < fauxLinks.length; i++) {
+        var link = fauxLinks[i]
+
+        if (link.getAttribute("onclick").split("\"")[1] == found) {
+            link.style.color = ""
+        }
+    }
+});
+
+const fixImageBoxes = setInterval(() => {
+
+    CheckForCompletion()
+
+}, 100)

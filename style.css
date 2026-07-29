@@ -4,6 +4,11 @@
 
 #options {
     display:flex;
+    gap: 20px
+}
+
+.optionsBox {
+    display: flex
 }
 
 body {
@@ -51,12 +56,59 @@ td:where(:empty) {
     text-align: left;
 }
 
+.tooltiptext {
+  visibility: hidden;
+  width: 25vw;
+  background-color: grey;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.notVisted { 
+    color: cyan
+}
+
+.partlyVisited {
+    color:lime
+}
+
+.fullyVisited {
+    color:darkblue
+}
+
 .fauxLink {
-    color:cyan;
     text-decoration: underline;
 }
 
 .fauxLink:hover {
     cursor:pointer;
-    color:blue
+    color:blue;
+    color: linear
+}
+
+.setting:not(:checked) ~ .tooltip > .tooltiptext > .optionsBox > input {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.setting:not(:checked) ~ .tooltip > .tooltiptext > .optionsBox{
+    text-decoration: line-through;
+}
+
+.darkTooltip {
+    background-color: rgb(71, 71, 71);
+}
+
+.tooltip > p {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.tooltip:hover > .tooltiptext {
+    visibility: visible;
 }

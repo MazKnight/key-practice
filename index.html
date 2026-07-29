@@ -10,12 +10,128 @@
 </head>
 <body>
     
-    <p>How does this work? Just press a website, it'll open it for you, then you'll be able to check for the keys yourself. Have fun!</p>
+    <p style="margin-bottom: 0px;">How does this work? Just press a website, it'll open it for you, then you'll be able to check for the keys yourself. 
+        Also, this website will keep track of what websites (and which pages) you have checked. All it takes to reset this is to press this button: </p>
+        <input type="button" name="reset" value="reset visits" style="margin-bottom: 8px;" onclick="resetVisitData()">
 
     <div id="options">
-        <input type="checkbox" name="showKeys" id="showKeys">
-        &nbsp;
-        <p>Show key locations</p>
+        <div class="optionsBox">
+            <input type="checkbox" name="showClickspots" class="setting" checked>
+            &nbsp;
+            <div class="tooltip">
+                <p>Show clickspot locations</p>
+                <div class="tooltiptext">
+                    Highlights every clickspot in red with blue background. Every image that can be clicked will be highlighted in blue.
+                
+                    <div class="optionsBox">
+                        <input type="checkbox" name="showFiles" class="setting" checked>
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show file locations</p>
+                            <span class="tooltiptext darkTooltip">
+                                There are 2 types of click spots: spots for files, and spots for keys. This will show file locations
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="optionsBox">
+                        <input type="checkbox" name="showKeys" class="setting" checked>
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show key locations</p>
+                            <span class="tooltiptext darkTooltip">
+                                There are 2 types of click spots: spots for files, and spots for keys. This will show key locations
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="optionsBox">
+            <input type="checkbox" name="showKeyText" class="setting" id="showKeyText">
+            &nbsp;
+            <div class="tooltip">
+                <p>Show key text locations</p>
+                <div class="tooltiptext">
+                    Basically, there are specific spots that keys can spawn in the website. Selecting this option will have all of those spots have a fake 
+                    key in them to simulate this. That way, you know where to look when using the website
+
+                    <div class="optionsBox" id="rainbowKeys">
+                        <input type="checkbox" name="rainbowKeys" class="setting">
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Rainbow text location</p>
+                            <span class="tooltiptext darkTooltip">Sometimes its hard to see the key text inside the website. This will make them rainbow. Hovering over them will make them their default color.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="optionsBox">
+                        <input type="checkbox" name="onHover" class="setting">
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show text keys only on hover</p>
+                            <span class="tooltiptext darkTooltip">Shows a green box where a text key is. If you want to see it, you have to hover over the green box. 
+                                Clicking it locks the key in place and hides the box. Clicking the key makes the green box appear and the key get removed from the text
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="optionsBox">
+            <input type="checkbox" name="showTextArea" class="setting" checked>
+            &nbsp;
+            <div class="tooltip">
+                <p>Show text area</p>
+                <div class="tooltiptext">Sometimes in websites, I need to add things like notes, options, or other things. If you want those to appear, select this,
+                    and check out the options for what to have inside it.
+                    <div class="optionsBox">
+                        <input type="checkbox" name="showNotes" class="setting" checked>
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Include notes</p>
+                            <span class="tooltiptext darkTooltip">Sometimes I need to add notes to websites about the visibility of certain clickspots. This shows you those notes. You can turn them off if you don't care</span>
+                        </div>
+                    </div>
+
+                    <div class="optionsBox">
+                        <input type="checkbox" name="showPages" class="setting" checked>
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show website pages</p>
+                            <span class="tooltiptext darkTooltip">This will add a list of all the pages for a specific website. Clicking on the pages will take you to them. Makes navigation easier</span>
+                        </div>
+                    </div>
+
+                    <div class="optionsBox">
+                        <input type="checkbox" name="showClickspotAmount" class="setting">
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show clickspot amount</p>
+                            <span class="tooltiptext darkTooltip">This shows how many clickspots there are. Useful if you want to check to see if there are any sneaky hidden ones you didn't see.
+                                Keep in mind hidden clickspots usually have a note attached to them, so you might want to enable "Include notes" if you are worried about them
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="optionsBox">
+                        <input type="checkbox" name="clickTypesToggle" class="setting">
+                        &nbsp;
+                        <div class="tooltip">
+                            <p>Show clickspot type toggles</p>
+                            <span class="tooltiptext darkTooltip">This allows you to toggle showing file and key clickspots. 
+                                Useful if you only want a website for keys and/or files, or if you want to check for one or the other first
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="mainInfo">
